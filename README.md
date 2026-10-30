@@ -1,107 +1,57 @@
-# A Heart Made of Stars 💙
-### A Personalized Romantic Particle Heart Website
+# A Heart Made of Stars
 
-A mesmerizing digital experience that brings starry cosmic romance to life. Enter your name and your crush's name, generate a luminous glowing blue particle heart, and share a secret personalized link made especially for one person.
+A small website for one person. You type your name and the name of someone you like, and a blue heart made of tiny glowing dots appears on a black screen. Then you copy a link and send it to them. When they open it, they see the heart with both your names on it.
 
----
+## What it does
 
-## ✨ Features
+- Black background, nothing else on the screen.
+- The dots drift in from all over and come together as a heart in about two seconds.
+- The heart beats, with a small double thump like a real one, and tilts a little when you move your mouse or phone.
+- Tap or click the heart and the dots burst outward, then slowly find their way back.
+- Your names show up under the heart, with the line "Somewhere in this universe, my heart chose you."
+- There's a button that opens a short letter. It has a default message, but you can write your own before you share the link.
+- Sound is there if you want it (a soft pad and a few chimes), but it's off until you turn it on. Nothing plays by itself.
+- It works on phones and desktop. The number of dots changes depending on the screen so it doesn't lag.
 
-- **Pure Visual Elegance**: Pure black background (`#000000`) with no code editors, no developer consoles, and no distracting clutter.
-- **Parametric 3D Particle Heart**: Thousands of glowing electric blue, neon cyan, ice blue, and diamond white particles computed mathematically with real physics.
-- **Cinematic Swirling Entrance**: Watch stardust gather from across deep space and assemble into a living, breathing heart over ~2 seconds.
-- **Living Double-Pulse Heartbeat**: Realistic systolic and diastolic cardiac rhythm and gentle 3D perspective parallax tilt.
-- **Interactive Stardust Bursts**: Tap or click the heart to trigger a cosmic supernova shockwave, glowing comet trails, and floating mini particle hearts that reform smoothly.
-- **Dynamic Name Personalization**:
-  - Displays `"Waxy ♥ [Their Name]"` in romantic typography with glowing cyan light.
-  - Subtitle: *"Somewhere in this universe, my heart chose you."*
-- **Secret Romantic Message Modal**:
-  - Click `"Open My Message "` to reveal an intimate romantic letter in a translucent frosted dark glass panel.
-  - Includes a poetic default message and supports full customization before sharing.
-- **Shareable Instant URLs**:
-  - Direct URL parameter support: `https://your-domain.com/?from=Anad&to=Elena`
-  - When the recipient opens the link, the setup form is bypassed and the personalized heart directly bursts to life!
-  - 1-click `"Copy Special Link "` with instant clipboard confirmation.
-- **Optional Celestial Ambient Sound**:
-  - Silent by default (strictly zero autoplay).
-  - Floating sound toggle powers an ethereal Web Audio synthesizer with warm cosmic pad drones and starry pentatonic wind chimes.
-- **Mobile-First & High-DPI**:
-  - Silky-smooth 60–120 FPS on iOS and Android smartphones, tablets, and desktop displays.
-  - Adaptive particle density and viewport scaling.
+## Running it on your computer
 
----
-
-## 🚀 Quick Start (Local Development)
-
-To run this project on your local machine:
+You need Node installed. Then:
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Start the local development server
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open http://localhost:5173 and you're in.
 
----
+## Sharing a link
 
-## 🔗 How Personalization Links Work
-
-You can create a personalized heart directly by visiting with query parameters:
+The names go in the address, so you can make a link by hand:
 
 ```
 http://localhost:5173/?from=Anad&to=Sophia
 ```
 
-With an optional custom message:
+If you want your own message in the letter, add `msg`:
+
 ```
 http://localhost:5173/?from=Anad&to=Sophia&msg=You%20are%20my%20universe
 ```
 
-The recipient will immediately see:
-1. The cinematic gathering of particles into the glowing heart.
-2. **Anad ♥ Sophia**
-3. *"Somewhere in this universe, my heart chose you."*
-4. The button to open your personalized letter.
+Whoever opens it skips the form and goes straight to the heart. The site also has a "Copy link" button, so you don't have to type any of this yourself.
 
----
+One catch: a `localhost` link only works on your own computer. To send it to someone you have to put the site online first (next section).
 
-## 🌐 Deploying to Get a Real Public Link (100% Free)
+## Putting it online
 
-> **Important**: `localhost` links only work on your own computer. To send this to your crush on WhatsApp, iMessage, Instagram, or TikTok, deploy it online to get a public URL.
+All three of these are free.
 
-### Option 1: Vercel (Fastest — 1 minute)
-1. In your project terminal, run:
-   ```bash
-   npx vercel
-   ```
-2. Follow the 3 prompt questions (press Enter for defaults).
-3. Vercel will give you a live HTTPS public link (e.g. `https://heart-made-of-stars.vercel.app`).
-4. Open the link, create your heart, and copy the special link!
+**Vercel.** Run `npx vercel` in the project folder and press Enter through the questions. You get a link at the end.
 
-### Option 2: Netlify Drop (No command line needed)
-1. Build the production files:
-   ```bash
-   npm run build
-   ```
-2. Go to [app.netlify.com/drop](https://app.netlify.com/drop) in your browser.
-3. Drag and drop the `dist` folder into the Netlify window.
-4. Your website is instantly live with a free shareable URL!
+**Netlify Drop.** Run `npm run build`, go to https://app.netlify.com/drop, and drag the `dist` folder onto the page.
 
-### Option 3: GitHub Pages
-1. Push this repository to GitHub.
-2. In your repository settings, enable **GitHub Pages** with the build action for Vite.
+**GitHub Pages.** Push the project to GitHub and turn on Pages in the repo settings. If the page comes up blank, set `base` in `vite.config` to your repo name.
 
----
+## Made with
 
-## 🛠️ Built With
-
-- **React 19**
-- **TypeScript**
-- **Vite 8**
-- **Tailwind CSS v4**
-- **HTML5 Canvas 2D Context** (with Additive Blending & Radial Glow Sprite Caching)
-- **Web Audio API**
-- **Lucide Icons**
+React 19, TypeScript, Vite, Tailwind CSS v4, the HTML canvas, the Web Audio API, and Lucide icons.
