@@ -1,0 +1,1121 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    overflow: hidden !important;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    background-color: #030611;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    display: none !important;
+    width: 0px !important;
+    background: transparent !important;
+  }
+
+  #lyrics-container,
+  #form-screen,
+  .letter-modal {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  ::selection {
+    background: rgba(99, 102, 241, 0.45);
+    color: #ffffff;
+  }
+}
+
+/* ========================================================
+   COSMIC THEMES & DYNAMIC CSS VARIABLES (8 EXPANDED PALETTES)
+   ======================================================== */
+:root,
+[data-theme="blue"] {
+  --theme-accent: #38bdf8;
+  --theme-secondary: #2563eb;
+  --theme-glow: rgba(56, 189, 248, 0.60);
+  --theme-glow-subtle: rgba(56, 189, 248, 0.24);
+  --theme-secondary-glow: rgba(37, 99, 235, 0.45);
+  --theme-border: rgba(56, 189, 248, 0.35);
+  --theme-btn-bg: rgba(14, 165, 233, 0.16);
+  --theme-btn-hover-bg: rgba(14, 165, 233, 0.28);
+  --ambient-bg-center: rgba(14, 165, 233, 0.16);
+  --ambient-bg-center-deep: rgba(30, 58, 138, 0.10);
+  --ambient-bg-mist: rgba(124, 58, 237, 0.12);
+  --ambient-bg-mist-subtle: rgba(79, 70, 229, 0.06);
+  --btn-gradient: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+  --btn-shadow: 0 10px 30px rgba(37, 99, 235, 0.50);
+  --btn-shadow-hover: 0 14px 40px rgba(56, 189, 248, 0.70);
+
+  /* Core & legacy aliases */
+  --theme-primary: var(--theme-accent);
+  --accent-primary: var(--theme-accent);
+  --accent-secondary: var(--theme-secondary);
+  --accent-glow: var(--theme-glow);
+  --accent-glow-subtle: var(--theme-glow-subtle);
+}
+
+[data-theme="purple"] {
+  --theme-accent: #c084fc;
+  --theme-secondary: #7c3aed;
+  --theme-glow: rgba(192, 132, 252, 0.65);
+  --theme-glow-subtle: rgba(192, 132, 252, 0.25);
+  --theme-secondary-glow: rgba(124, 58, 237, 0.45);
+  --theme-border: rgba(192, 132, 252, 0.35);
+  --theme-btn-bg: rgba(168, 85, 247, 0.16);
+  --theme-btn-hover-bg: rgba(168, 85, 247, 0.28);
+  --ambient-bg-center: rgba(168, 85, 247, 0.18);
+  --ambient-bg-center-deep: rgba(88, 28, 135, 0.12);
+  --ambient-bg-mist: rgba(109, 40, 217, 0.15);
+  --ambient-bg-mist-subtle: rgba(76, 29, 149, 0.07);
+  --btn-gradient: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
+  --btn-shadow: 0 10px 30px rgba(124, 58, 237, 0.50);
+  --btn-shadow-hover: 0 14px 40px rgba(192, 132, 252, 0.70);
+
+  --accent-primary: var(--theme-accent);
+  --accent-secondary: var(--theme-secondary);
+  --accent-glow: var(--theme-glow);
+  --accent-glow-subtle: var(--theme-glow-subtle);
+}
+
+[data-theme="pink"] {
+  --theme-accent: #f472b6;
+  --theme-secondary: #db2777;
+  --theme-glow: rgba(244, 114, 182, 0.65);
+  --theme-glow-subtle: rgba(244, 114, 182, 0.25);
+  --theme-secondary-glow: rgba(219, 39, 119, 0.45);
+  --theme-border: rgba(244, 114, 182, 0.35);
+  --theme-btn-bg: rgba(236, 72, 153, 0.16);
+  --theme-btn-hover-bg: rgba(236, 72, 153, 0.28);
+  --ambient-bg-center: rgba(236, 72, 153, 0.18);
+  --ambient-bg-center-deep: rgba(131, 24, 67, 0.12);
+  --ambient-bg-mist: rgba(162, 28, 175, 0.15);
+  --ambient-bg-mist-subtle: rgba(112, 26, 117, 0.07);
+  --btn-gradient: linear-gradient(135deg, #db2777 0%, #f472b6 100%);
+  --btn-shadow: 0 10px 30px rgba(219, 39, 119, 0.50);
+  --btn-shadow-hover: 0 14px 40px rgba(244, 114, 182, 0.70);
+
+  --accent-primary: var(--theme-accent);
+  --accent-secondary: var(--theme-secondary);
+  --accent-glow: var(--theme-glow);
+  --accent-glow-subtle: var(--theme-glow-subtle);
+}
+
+[data-theme="red"] {
+  --theme-accent: #fb7185;
+  --theme-secondary: #e11d48;
+  --theme-glow: rgba(251, 113, 133, 0.65);
+  --theme-glow-subtle: rgba(251, 113, 133, 0.25);
+  --theme-secondary-glow: rgba(225, 29, 72, 0.45);
+  --theme-border: rgba(251, 113, 133, 0.35);
+  --theme-btn-bg: rgba(225, 29, 72, 0.16);
+  --theme-btn-hover-bg: rgba(225, 29, 72, 0.28);
+  --ambient-bg-center: rgba(225, 29, 72, 0.18);
+  --ambient-bg-center-deep: rgba(136, 19, 55, 0.12);
+  --ambient-bg-mist: rgba(159, 18, 57, 0.15);
+  --ambient-bg-mist-subtle: rgba(100, 11, 35, 0.07);
+  --btn-gradient: linear-gradient(135deg, #e11d48 0%, #fb7185 100%);
+  --btn-shadow: 0 10px 30px rgba(225, 29, 72, 0.50);
+  --btn-shadow-hover: 0 14px 40px rgba(251, 113, 133, 0.70);
+
+  --accent-primary: var(--theme-accent);
+  --accent-secondary: var(--theme-secondary);
+  --accent-glow: var(--theme-glow);
+  --accent-glow-subtle: var(--theme-glow-subtle);
+}
+
+[data-theme="gold"] {
+  --theme-accent: #fbbf24;
+  --theme-secondary: #d97706;
+  --theme-glow: rgba(251, 191, 36, 0.65);
+  --theme-glow-subtle: rgba(251, 191, 36, 0.25);
+  --theme-secondary-glow: rgba(217, 119, 6, 0.45);
+  --theme-border: rgba(251, 191, 36, 0.35);
+  --theme-btn-bg: rgba(245, 158, 11, 0.16);
+  --theme-btn-hover-bg: rgba(245, 158, 11, 0.28);
+  --ambient-bg-center: rgba(245, 158, 11, 0.18);
+  --ambient-bg-center-deep: rgba(180, 83, 9, 0.12);
+  --ambient-bg-mist: rgba(217, 119, 6, 0.15);
+  --ambient-bg-mist-subtle: rgba(146, 64, 14, 0.07);
+  --btn-gradient: linear-gradient(135deg, #d97706 0%, #fbbf24 100%);
+  --btn-shadow: 0 10px 30px rgba(217, 119, 6, 0.50);
+  --btn-shadow-hover: 0 14px 40px rgba(251, 191, 36, 0.70);
+
+  --accent-primary: var(--theme-accent);
+  --accent-secondary: var(--theme-secondary);
+  --accent-glow: var(--theme-glow);
+  --accent-glow-subtle: var(--theme-glow-subtle);
+}
+
+[data-theme="orange"] {
+  --theme-accent: #fb923c;
+  --theme-secondary: #ea580c;
+  --theme-glow: rgba(251, 146, 60, 0.65);
+  --theme-glow-subtle: rgba(251, 146, 60, 0.25);
+  --theme-secondary-glow: rgba(234, 88, 12, 0.45);
+  --theme-border: rgba(251, 146, 60, 0.35);
+  --theme-btn-bg: rgba(249, 115, 22, 0.16);
+  --theme-btn-hover-bg: rgba(249, 115, 22, 0.28);
+  --ambient-bg-center: rgba(249, 115, 22, 0.18);
+  --ambient-bg-center-deep: rgba(154, 52, 18, 0.12);
+  --ambient-bg-mist: rgba(234, 88, 12, 0.15);
+  --ambient-bg-mist-subtle: rgba(124, 45, 18, 0.07);
+  --btn-gradient: linear-gradient(135deg, #ea580c 0%, #fb923c 100%);
+  --btn-shadow: 0 10px 30px rgba(234, 88, 12, 0.50);
+  --btn-shadow-hover: 0 14px 40px rgba(251, 146, 60, 0.70);
+
+  --accent-primary: var(--theme-accent);
+  --accent-secondary: var(--theme-secondary);
+  --accent-glow: var(--theme-glow);
+  --accent-glow-subtle: var(--theme-glow-subtle);
+}
+
+[data-theme="aqua"],
+[data-theme="emerald"] {
+  --theme-accent: #2dd4bf;
+  --theme-secondary: #0d9488;
+  --theme-glow: rgba(45, 212, 191, 0.65);
+  --theme-glow-subtle: rgba(45, 212, 191, 0.25);
+  --theme-secondary-glow: rgba(13, 148, 136, 0.45);
+  --theme-border: rgba(45, 212, 191, 0.35);
+  --theme-btn-bg: rgba(13, 148, 136, 0.16);
+  --theme-btn-hover-bg: rgba(13, 148, 136, 0.28);
+  --ambient-bg-center: rgba(20, 184, 166, 0.18);
+  --ambient-bg-center-deep: rgba(15, 118, 110, 0.12);
+  --ambient-bg-mist: rgba(13, 148, 136, 0.15);
+  --ambient-bg-mist-subtle: rgba(17, 94, 89, 0.07);
+  --btn-gradient: linear-gradient(135deg, #0d9488 0%, #2dd4bf 100%);
+  --btn-shadow: 0 10px 30px rgba(13, 148, 136, 0.50);
+  --btn-shadow-hover: 0 14px 40px rgba(45, 212, 191, 0.70);
+
+  --accent-primary: var(--theme-accent);
+  --accent-secondary: var(--theme-secondary);
+  --accent-glow: var(--theme-glow);
+  --accent-glow-subtle: var(--theme-glow-subtle);
+}
+
+[data-theme="pearl"] {
+  --theme-accent: #e2e8f0;
+  --theme-secondary: #94a3b8;
+  --theme-glow: rgba(241, 245, 249, 0.65);
+  --theme-glow-subtle: rgba(226, 232, 240, 0.25);
+  --theme-secondary-glow: rgba(148, 163, 184, 0.45);
+  --theme-border: rgba(226, 232, 240, 0.35);
+  --theme-btn-bg: rgba(241, 245, 249, 0.12);
+  --theme-btn-hover-bg: rgba(241, 245, 249, 0.22);
+  --ambient-bg-center: rgba(226, 232, 240, 0.14);
+  --ambient-bg-center-deep: rgba(100, 116, 139, 0.10);
+  --ambient-bg-mist: rgba(148, 163, 184, 0.12);
+  --ambient-bg-mist-subtle: rgba(71, 85, 105, 0.06);
+  --btn-gradient: linear-gradient(135deg, #64748b 0%, #cbd5e1 100%);
+  --btn-shadow: 0 10px 30px rgba(148, 163, 184, 0.45);
+  --btn-shadow-hover: 0 14px 40px rgba(226, 232, 240, 0.65);
+
+  --accent-primary: var(--theme-accent);
+  --accent-secondary: var(--theme-secondary);
+  --accent-glow: var(--theme-glow);
+  --accent-glow-subtle: var(--theme-glow-subtle);
+}
+
+/* ========================================================
+   GLOBAL SCREEN TRANSITIONS & VISIBILITY STATES
+   ======================================================== */
+.fade-out {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(0.98);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: scale(1);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#form-screen,
+#viewer-screen {
+  will-change: opacity, transform;
+}
+
+.font-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Cosmic celestial background with layered navy & faint nebula violet glow */
+.bg-cosmic {
+  background-color: #060813;
+  background-image: 
+    radial-gradient(circle at 50% 16%, rgba(79, 70, 229, 0.18) 0%, transparent 55%),
+    radial-gradient(circle at 18% 78%, rgba(37, 99, 235, 0.22) 0%, transparent 50%),
+    radial-gradient(circle at 82% 72%, rgba(99, 102, 241, 0.20) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(6, 8, 19, 0.9) 0%, transparent 100%);
+}
+
+/* Silver-to-white gradient text for Cormorant Garamond heading */
+.text-gradient-silver {
+  background: linear-gradient(180deg, #ffffff 30%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Enhanced Glassmorphism Card with Theme Outer Edge Glow & Refraction Rim */
+.glass-card-cosmic,
+.form-card {
+  will-change: transform;
+  transform: translateZ(0);
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--theme-border, rgba(255, 255, 255, 0.12));
+  border-radius: 24px;
+  box-shadow: 
+    0 0 50px -10px var(--theme-glow, rgba(99, 102, 241, 0.30)),
+    0 30px 65px rgba(0, 0, 0, 0.75),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  max-height: 85vh;
+  max-height: 85dvh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 22px 28px;
+}
+
+.glass-card-cosmic::-webkit-scrollbar,
+.form-card::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  background: transparent !important;
+}
+
+/* Form Screen Themed Pill Badge */
+.theme-pill-badge {
+  background: var(--theme-btn-bg, rgba(99, 102, 241, 0.15));
+  border: 1px solid var(--theme-border, rgba(99, 102, 241, 0.35));
+  box-shadow: 0 0 16px var(--theme-glow-subtle, rgba(99, 102, 241, 0.25));
+  transition: all 0.35s ease;
+}
+
+/* Form Screen Themed Input (Compact 9px 12px) */
+.theme-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: #f8fafc;
+  padding: 9px 12px;
+  font-size: 13px;
+  transition: all 0.25s ease;
+}
+
+.theme-input:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.theme-input:focus {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--theme-primary);
+  box-shadow: 0 0 20px var(--theme-glow);
+  outline: none;
+}
+
+/* Romantic Letter Modal Dynamic Themed Styling with Breathing Halo */
+.romantic-modal-card {
+  background: rgba(10, 12, 22, 0.95);
+  border: 1px solid var(--theme-border);
+  box-shadow: 0 0 45px -5px var(--theme-glow), 0 20px 50px rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation: modalCardGlowPulse 4s ease-in-out infinite;
+  transition: all 0.35s ease;
+}
+
+@keyframes modalCardGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 38px -8px var(--theme-glow), 0 20px 50px rgba(0, 0, 0, 0.9);
+  }
+  50% {
+    box-shadow: 0 0 55px -2px var(--theme-glow), 0 20px 50px rgba(0, 0, 0, 0.92);
+  }
+}
+
+.romantic-modal-badge {
+  background: var(--theme-btn-bg);
+  border: 1px solid var(--theme-border);
+  box-shadow: 0 0 16px var(--theme-glow-subtle);
+  transition: all 0.35s ease;
+}
+
+/* Rhythmic Heartbeat Pulse for Letter Modal Top Heart Badge */
+@keyframes cosmicHeartbeat {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px var(--theme-glow));
+  }
+  14% {
+    transform: scale(1.18);
+    filter: drop-shadow(0 0 16px var(--theme-primary));
+  }
+  28% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px var(--theme-glow));
+  }
+  42% {
+    transform: scale(1.24);
+    filter: drop-shadow(0 0 20px var(--theme-primary));
+  }
+  70% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px var(--theme-glow));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px var(--theme-glow));
+  }
+}
+
+.letter-modal .modal-badge svg,
+.letter-modal .modal-badge,
+.letter-modal .romantic-modal-badge svg,
+.letter-modal .romantic-modal-badge {
+  animation: cosmicHeartbeat 1.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.romantic-modal-btn {
+  background: var(--theme-btn-bg);
+  border: 1px solid var(--theme-border);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.romantic-modal-btn:hover {
+  background: var(--theme-btn-hover-bg);
+  border-color: var(--theme-primary);
+  box-shadow: 0 0 20px var(--theme-glow);
+  transform: translateY(-1px);
+}
+
+/* ========================================================
+   CINEMATIC LETTER MODAL SYSTEM (SPRING-GLASS ENTRANCE & EXIT)
+   ======================================================== */
+.letter-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(2, 4, 10, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: opacity 0.4s ease;
+  animation: modalBackdropFadeIn 0.4s ease forwards;
+}
+
+@media (min-width: 640px) {
+  .letter-modal-backdrop {
+    padding: 1.5rem;
+  }
+}
+
+.letter-modal-backdrop.closing {
+  opacity: 0 !important;
+  transition: opacity 0.32s cubic-bezier(0.4, 0, 1, 1);
+  pointer-events: none;
+}
+
+@keyframes modalBackdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes romanticModalEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(24px);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
+}
+
+.letter-modal {
+  will-change: transform, opacity, filter;
+}
+
+.letter-modal.active {
+  animation: romanticModalEnter 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.letter-modal.closing {
+  opacity: 0 !important;
+  transform: scale(0.95) translateY(12px) !important;
+  filter: blur(4px) !important;
+  transition: all 0.32s cubic-bezier(0.4, 0, 1, 1) !important;
+  pointer-events: none;
+}
+
+/* ========================================================
+   STAGGERED CASCADING INK REVEAL (TEXT ANIMATION)
+   ======================================================== */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.letter-modal.active .stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Atmospheric Ambient Backlight Aura Breathing Animation */
+@keyframes cosmicAuraPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.24;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 0.34;
+  }
+}
+
+.animate-aura-pulse {
+  animation: cosmicAuraPulse 8s ease-in-out infinite;
+}
+
+/* ========================================================
+   IDEA 1: WIDE ETHEREAL MISTY COSMIC AURORA BACKGROUND
+   ======================================================== */
+body,
+.main-container,
+.cosmic-heart-stage {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #030611;
+  background-image: 
+    /* Center Heart Soft Primary Core Bloom (Expanded for enlarged stardust heart) */
+    radial-gradient(ellipse 820px 450px at 50% 36%, var(--ambient-bg-center) 0%, var(--ambient-bg-center-deep) 45%, transparent 75%),
+    /* Left-to-Center Nebula Mist */
+    radial-gradient(ellipse 950px 480px at 38% 42%, var(--ambient-bg-mist) 0%, var(--ambient-bg-mist-subtle) 50%, transparent 80%),
+    /* Deep Midnight Deep-Space Vignette */
+    radial-gradient(circle at 50% 50%, transparent 40%, rgba(2, 4, 10, 0.75) 85%, #020409 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  transition: background-image 0.5s ease;
+}
+
+/* ========================================================
+   CINEMATIC "I LOVE YOU" INTRO TYPOGRAPHY OVERLAY
+   ======================================================== */
+.intro-love-overlay {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity;
+}
+
+.intro-love-text {
+  font-family: 'Great Vibes', 'Playfair Display', cursive, serif;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.35;
+  padding: 8px 24px;
+  letter-spacing: normal;
+  word-spacing: 14px;
+  text-align: center;
+  white-space: nowrap;
+  background: linear-gradient(180deg, #ffffff 15%, var(--theme-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) 
+          drop-shadow(0 0 18px var(--theme-glow))
+          drop-shadow(0 0 35px var(--theme-secondary-glow));
+  user-select: none;
+}
+
+@media (min-width: 640px) {
+  .intro-love-text {
+    font-size: 52px;
+    word-spacing: 16px;
+  }
+}
+
+/* ========================================================
+   FROSTED GLASS CELESTIAL AUDIO TOGGLE BUTTON
+   ======================================================== */
+.celestial-audio-btn {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  z-index: 50;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  color: rgba(255, 255, 255, 0.85);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 640px) {
+  .celestial-audio-btn {
+    top: 18px;
+    right: 18px;
+  }
+}
+
+.celestial-audio-btn:hover {
+  transform: scale(1.06);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
+
+.celestial-audio-btn:active {
+  transform: scale(0.96);
+}
+
+.celestial-audio-btn:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.6);
+  outline-offset: 2px;
+}
+
+/* Sound Wave Animations */
+@keyframes wavePulse1 {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes wavePulse2 {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.95; }
+}
+
+.animate-sound-wave-1 {
+  animation: wavePulse1 1.6s ease-in-out infinite;
+}
+
+.animate-sound-wave-2 {
+  animation: wavePulse2 1.6s ease-in-out infinite 0.3s;
+}
+
+/* Shimmer sweep light animation for primary button */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+.animate-shimmer-sweep {
+  animation: shimmerSweep 3.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.35);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.65);
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ========================================================
+   TOP INSTRUCTION: PURE UNBOXED CELESTIAL TYPOGRAPHY
+   ======================================================== */
+.top-instruction-text {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.7);
+  /* Organic heart backlight illumination catch */
+  text-shadow: 0 0 12px var(--theme-glow-subtle), 0 0 24px var(--ambient-bg-center);
+  user-select: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .top-instruction-text {
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+}
+
+.top-instruction-text:hover {
+  color: rgba(241, 245, 249, 0.95);
+  text-shadow: 0 0 16px var(--theme-glow), 0 0 32px var(--theme-glow-subtle);
+}
+
+/* ========================================================
+   COUPLE NAMES: DYNAMIC THEME OPTICAL LIGHT BLOOM & HEART
+   ======================================================== */
+.couple-names-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  cursor: default;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Optical Halation Backlight: soft diffused celestial aura without harsh borders */
+.couple-names-container::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 240px;
+  height: 52px;
+  background: radial-gradient(ellipse at center, var(--theme-glow-subtle) 0%, var(--ambient-bg-mist-subtle) 50%, transparent 75%);
+  filter: blur(24px);
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease, background 0.4s ease;
+}
+
+.couple-names-container:hover {
+  transform: scale(1.03);
+}
+
+.couple-names-container:hover::before {
+  transform: translate(-50%, -50%) scale(1.15);
+  background: radial-gradient(ellipse at center, var(--theme-glow) 0%, var(--ambient-bg-mist) 55%, transparent 80%);
+}
+
+.couple-name-text {
+  font-family: 'Great Vibes', 'Playfair Display', cursive, serif;
+  font-size: clamp(34px, 4.5vw, 42px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Dynamic multi-layered optical bloom matching active theme */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 22px var(--theme-glow), 0 0 45px var(--theme-secondary-glow);
+  line-height: 1.25;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  transition: text-shadow 0.4s ease;
+}
+
+.theme-center-heart,
+.neon-heart {
+  display: inline-block;
+  font-size: clamp(22px, 3vw, 28px);
+  margin: 0 8px;
+  user-select: none;
+  filter: drop-shadow(0 0 12px var(--theme-glow));
+  animation: themeHeartPulse 1.4s ease-in-out infinite;
+  transform-origin: center center;
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+  transition: filter 0.3s ease;
+}
+
+@keyframes themeHeartPulse {
+  0%, 70%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px var(--theme-glow));
+  }
+  14% {
+    transform: scale(1.22);
+    filter: drop-shadow(0 0 20px var(--theme-glow)) drop-shadow(0 0 32px var(--theme-secondary-glow));
+  }
+  28% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 12px var(--theme-glow));
+  }
+  42% {
+    transform: scale(1.18);
+    filter: drop-shadow(0 0 18px var(--theme-glow));
+  }
+}
+
+/* ========================================================
+   THEME-SYNCHRONIZED BOTTOM ACTION BUTTONS
+   ======================================================== */
+.theme-action-btn-primary {
+  background: var(--theme-btn-bg, rgba(255, 255, 255, 0.08));
+  border: 1px solid var(--theme-border, rgba(255, 255, 255, 0.15));
+  color: #ffffff;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.theme-action-btn-primary:hover {
+  background: var(--theme-btn-hover-bg, rgba(255, 255, 255, 0.18));
+  border-color: var(--theme-accent);
+  box-shadow: 0 0 18px var(--theme-glow), 0 4px 20px rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.theme-action-btn-secondary {
+  background: rgba(10, 14, 26, 0.65);
+  border: 1px solid var(--theme-border, rgba(255, 255, 255, 0.12));
+  color: rgba(241, 245, 249, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.theme-action-btn-secondary:hover {
+  background: rgba(18, 24, 42, 0.85);
+  border-color: var(--theme-accent);
+  box-shadow: 0 0 18px var(--theme-glow), 0 4px 20px rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.theme-action-btn-tertiary {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(203, 213, 225, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-action-btn-tertiary:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--theme-accent);
+  box-shadow: 0 0 16px var(--theme-glow);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ========================================================
+   THEME SELECTOR & CTA BUTTON DYNAMICS
+   ======================================================== */
+.btn-cosmic-cta {
+  background-image: var(--btn-gradient) !important;
+  box-shadow: var(--btn-shadow) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-cosmic-cta:hover {
+  box-shadow: var(--btn-shadow-hover) !important;
+  transform: translateY(-1px);
+}
+
+.theme-swatch-ring {
+  box-shadow: 0 0 14px var(--swatch-glow, rgba(255, 255, 255, 0.4));
+}
+
+.cosmic-ambient-aura {
+  will-change: opacity;
+  transform: translateZ(0);
+  transition: none !important;
+}
+
+.theme-swatch-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+
+/* ========================================================
+   BOTTOM ROMANTIC QUOTE: POETIC FLOURISH WITH HAIRLINES
+   ======================================================== */
+.romantic-quote-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  padding: 0 16px;
+  max-width: 100%;
+}
+
+.romantic-quote-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.8vw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: rgba(241, 245, 249, 0.88);
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+  text-shadow: 0 0 14px var(--theme-glow-subtle);
+  transition: text-shadow 0.4s ease;
+}
+
+.quote-hairline {
+  display: inline-block;
+  width: 30px;
+  height: 1px;
+  flex-shrink: 0;
+  transition: background 0.4s ease;
+}
+
+.quote-hairline-left {
+  background: linear-gradient(90deg, transparent, var(--theme-border));
+}
+
+.quote-hairline-right {
+  background: linear-gradient(90deg, var(--theme-border), transparent);
+}
+
+/* ========================================================
+   LEFT-SIDE FLOATING LYRICS DISPLAY
+   ======================================================== */
+#lyrics-container,
+.lyrics-floating-container {
+  position: fixed;
+  left: 6vw;
+  top: 46%;
+  transform: translateY(-50%);
+  width: 340px;
+  z-index: 15;
+  pointer-events: none;
+  text-align: left;
+  user-select: none;
+}
+
+@media (max-width: 767px) {
+  #lyrics-container,
+  .lyrics-floating-container {
+    top: 56px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+    text-align: center;
+  }
+}
+
+.lyrics-melody-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 19px;
+  color: var(--theme-primary);
+  margin-bottom: 8px;
+  opacity: 0.88;
+  text-shadow: 0 0 12px var(--theme-glow-subtle);
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 767px) {
+  .lyrics-melody-title {
+    font-size: 16px;
+    margin-bottom: 4px;
+    justify-content: center;
+  }
+}
+
+/* Previous Lyric Line (fading upward) */
+.lyric-line-prev {
+  opacity: 0.22;
+  transform: translateY(-8px) scale(0.94);
+  filter: blur(1px);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.35;
+  margin-bottom: 6px;
+  transition: all 0.4s ease;
+  min-height: 22px;
+}
+
+@media (max-width: 767px) {
+  .lyric-line-prev {
+    font-size: 13px;
+    margin-bottom: 2px;
+    min-height: 16px;
+  }
+}
+
+/* Active Lyric Line (popping in with starlight glow) */
+.lyric-line-active {
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-size: 23px;
+  line-height: 1.4;
+  font-style: italic;
+  font-weight: 400;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 22px var(--theme-glow), 0 0 40px var(--theme-secondary-glow);
+  border-left: 2px solid var(--theme-primary);
+  padding-left: 14px;
+  margin: 6px 0;
+  animation: lyricPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+  transition: border-color 0.4s ease, text-shadow 0.4s ease;
+}
+
+@media (max-width: 767px) {
+  .lyric-line-active {
+    font-size: 18px;
+    line-height: 1.3;
+    border-left: none;
+    padding-left: 0;
+    margin: 3px 0;
+  }
+}
+
+@keyframes lyricPopIn {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* Next Lyric Preview (subtle below) */
+.lyric-line-next {
+  opacity: 0.12;
+  transform: translateY(8px) scale(0.94);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.35;
+  margin-top: 6px;
+  transition: all 0.4s ease;
+  min-height: 20px;
+}
+
+@media (max-width: 767px) {
+  .lyric-line-next {
+    font-size: 12px;
+    margin-top: 2px;
+    min-height: 14px;
+  }
+}
+
+/* ========================================================
+   SCALABLE SONG SELECTOR PILL BUTTONS (FORM CARD)
+   ======================================================== */
+.song-pill-btn {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  user-select: none;
+}
+
+.song-pill-inactive {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.song-pill-inactive:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.song-pill-active {
+  background: var(--theme-btn-bg, rgba(56, 189, 248, 0.16));
+  border: 1px solid var(--theme-primary);
+  box-shadow: 0 0 15px var(--theme-glow);
+  color: #ffffff;
+}
+
