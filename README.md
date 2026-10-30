@@ -13,7 +13,7 @@ A mesmerizing digital experience that brings starry cosmic romance to life. Ente
 - **Living Double-Pulse Heartbeat**: Realistic systolic and diastolic cardiac rhythm and gentle 3D perspective parallax tilt.
 - **Interactive Stardust Bursts**: Tap or click the heart to trigger a cosmic supernova shockwave, glowing comet trails, and floating mini particle hearts that reform smoothly.
 - **Dynamic Name Personalization**:
-  - Displays `"Anad ♥ [Their Name]"` in romantic typography with glowing cyan light.
+  - Displays `"Waxy ♥ [Their Name]"` in romantic typography with glowing cyan light.
   - Subtitle: *"Somewhere in this universe, my heart chose you."*
 - **Secret Romantic Message Modal**:
   - Click `"Open My Message "` to reveal an intimate romantic letter in a translucent frosted dark glass panel.
