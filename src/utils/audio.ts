@@ -9,9 +9,12 @@ class CosmicAudioEngine {
   private currentSrc: string = '';
   private timeListeners: Set<(time: number) => void> = new Set();
   private stateListeners: Set<(isPlaying: boolean) => void> = new Set();
+  private volumeListeners: Set<(volume: number) => void> = new Set();
   private fadeTimer: number | null = null;
   private rafId: number | null = null;
   private lastReportedTime: number = -1;
+  private userVolume: number = 0.85;
+  private lastNonZeroVolume: number = 0.85;
 
   // Web Audio Context for crystalline chimes on heart tap
   private chimeCtx: AudioContext | null = null;
@@ -19,6 +22,8 @@ class CosmicAudioEngine {
 
   constructor() {
     this.isMuted = true;
+    this.userVolume = 0.85;
+    this.lastNonZeroVolume = 0.85;
   }
 
   private startTicker() {
@@ -118,12 +123,87 @@ class CosmicAudioEngine {
       this.init();
     }
     if (this.isPlaying()) {
+      if (this.userVolume > 0) {
+        this.lastNonZeroVolume = this.userVolume;
+      }
       this.pause();
+      this.volumeListeners.forEach((fn) => fn(0));
       return false;
     } else {
+      if (this.userVolume <= 0) {
+        this.userVolume = this.lastNonZeroVolume > 0 ? this.lastNonZeroVolume : 0.85;
+      }
       this.play();
+      this.volumeListeners.forEach((fn) => fn(this.userVolume));
       return true;
     }
+  }
+
+  public setVolume(vol: number) {
+    const clamped = Math.max(0, Math.min(1, vol));
+
+    if (clamped === 0) {
+      this.userVolume = 0;
+      this.isMuted = true;
+      this.shouldPlay = false;
+
+      if (this.fadeTimer) {
+        window.clearInterval(this.fadeTimer);
+        this.fadeTimer = null;
+      }
+
+      if (this.audio) {
+        this.audio.volume = 0;
+        if (!this.audio.paused) {
+          this.audio.pause();
+        }
+      }
+
+      this.stateListeners.forEach((fn) => fn(false));
+      this.volumeListeners.forEach((fn) => fn(0));
+      return;
+    }
+
+    this.userVolume = clamped;
+    this.lastNonZeroVolume = clamped;
+
+    if (this.fadeTimer) {
+      window.clearInterval(this.fadeTimer);
+      this.fadeTimer = null;
+    }
+
+    if (this.audio) {
+      this.audio.volume = clamped;
+    }
+
+    if (this.isMuted || !this.isPlaying()) {
+      this.isMuted = false;
+      this.shouldPlay = true;
+
+      if (this.audio) {
+        const p = this.audio.play();
+        if (p !== undefined) {
+          p.then(() => {
+            this.startTicker();
+            this.stateListeners.forEach((fn) => fn(true));
+          }).catch(() => {});
+        }
+      } else {
+        this.init();
+        this.play();
+      }
+      this.stateListeners.forEach((fn) => fn(true));
+    }
+
+    this.volumeListeners.forEach((fn) => fn(clamped));
+  }
+
+  public getVolume(): number {
+    return this.isMuted ? 0 : this.userVolume;
+  }
+
+  public getRawVolume(): number {
+    return this.userVolume;
   }
 
   public isPlaying(): boolean {
@@ -157,8 +237,13 @@ class CosmicAudioEngine {
       this.fadeTimer = null;
     }
 
+    if (this.userVolume <= 0) {
+      this.userVolume = this.lastNonZeroVolume > 0 ? this.lastNonZeroVolume : 0.85;
+    }
+
     this.isMuted = false;
     this.stateListeners.forEach((fn) => fn(true));
+    this.volumeListeners.forEach((fn) => fn(this.userVolume));
 
     const promise = this.audio.play();
     if (promise !== undefined) {
@@ -177,10 +262,10 @@ class CosmicAudioEngine {
 
           this.startTicker();
 
-          // Smooth volume fade-in up to 0.85 over 1.0s
+          // Smooth volume fade-in up to this.userVolume
           let currentVol = this.audio ? this.audio.volume : 0;
-          const targetVol = 0.85;
-          const step = (targetVol - currentVol) / 16;
+          const targetVol = this.userVolume;
+          const step = Math.max(0.02, (targetVol - currentVol) / 10);
 
           this.fadeTimer = window.setInterval(() => {
             if (!this.shouldPlay) {
@@ -196,7 +281,7 @@ class CosmicAudioEngine {
               window.clearInterval(this.fadeTimer);
               this.fadeTimer = null;
             }
-          }, 50);
+          }, 40);
         })
         .catch(() => {
           this.isMuted = true;
@@ -260,8 +345,19 @@ class CosmicAudioEngine {
     };
   }
 
+  public onVolumeChange(callback: (volume: number) => void): () => void {
+    this.volumeListeners.add(callback);
+    callback(this.getVolume());
+    return () => {
+      this.volumeListeners.delete(callback);
+    };
+  }
+
   // Interactive crystalline sparkle chime when tapping the stardust heart
   public playBurstSound() {
+    // Strictly respect mute state: if user muted audio or volume is 0, play NOTHING!
+    if (this.isMuted || !this.shouldPlay || this.userVolume <= 0) return;
+
     try {
       if (!this.chimeCtx) {
         const AudioCtxClass =
@@ -278,6 +374,8 @@ class CosmicAudioEngine {
       }
 
       const notes = [659.25, 830.61, 1108.73, 1318.51, 1661.22];
+      const masterVol = Math.max(0.1, this.userVolume);
+
       for (let i = 0; i < 3; i++) {
         const note = notes[Math.floor(Math.random() * notes.length)];
         const osc = this.chimeCtx.createOscillator();
@@ -287,7 +385,7 @@ class CosmicAudioEngine {
 
         const now = this.chimeCtx.currentTime + i * 0.07;
         gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.linearRampToValueAtTime(0.12, now + 0.03);
+        gain.gain.linearRampToValueAtTime(0.12 * masterVol, now + 0.03);
         gain.gain.exponentialRampToValueAtTime(0.00001, now + 1.6);
 
         osc.connect(gain);

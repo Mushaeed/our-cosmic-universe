@@ -302,7 +302,7 @@ export const App: React.FC = () => {
         <div className="relative z-20 w-full h-full flex flex-col justify-between pointer-events-none p-4 sm:p-6 pb-6 sm:pb-8">
           {/* Top Interactive Prompt (reveals after heart formation) */}
           <div
-            className={`w-full flex justify-center pt-2 sm:pt-4 px-4 transition-opacity duration-700 ${
+            className={`w-full flex justify-center pt-8 sm:pt-4 px-4 transition-opacity duration-700 ${
               hasHeartFormed ? 'opacity-100' : 'opacity-0'
             }`}
           >

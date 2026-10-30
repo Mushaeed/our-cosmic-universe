@@ -188,9 +188,7 @@ export const ParticleHeartCanvas: React.FC<ParticleHeartCanvasProps> = ({
     const clickX = clientX !== undefined ? clientX : width / 2;
     const clickY = clientY !== undefined ? clientY : height * 0.38;
 
-    if (interactiveRef.current && !soundManager.isPlaying()) {
-      soundManager.play();
-    }
+    // Canvas clicks strictly spawn bursts without altering audio playback or unmuting
     soundManager.playBurstSound();
     spawnMiniHearts(clickX, clickY, 3);
 
