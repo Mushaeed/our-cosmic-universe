@@ -16,12 +16,12 @@ A mesmerizing digital experience that brings starry cosmic romance to life. Ente
   - Displays `"Anad ♥ [Their Name]"` in romantic typography with glowing cyan light.
   - Subtitle: *"Somewhere in this universe, my heart chose you."*
 - **Secret Romantic Message Modal**:
-  - Click `"Open My Message 💌"` to reveal an intimate romantic letter in a translucent frosted dark glass panel.
+  - Click `"Open My Message "` to reveal an intimate romantic letter in a translucent frosted dark glass panel.
   - Includes a poetic default message and supports full customization before sharing.
 - **Shareable Instant URLs**:
   - Direct URL parameter support: `https://your-domain.com/?from=Anad&to=Elena`
   - When the recipient opens the link, the setup form is bypassed and the personalized heart directly bursts to life!
-  - 1-click `"Copy Special Link 🔗"` with instant clipboard confirmation.
+  - 1-click `"Copy Special Link "` with instant clipboard confirmation.
 - **Optional Celestial Ambient Sound**:
   - Silent by default (strictly zero autoplay).
   - Floating sound toggle powers an ethereal Web Audio synthesizer with warm cosmic pad drones and starry pentatonic wind chimes.
