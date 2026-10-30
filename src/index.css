@@ -674,6 +674,16 @@ body,
   }
 }
 
+.celestial-volume-percentage {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .celestial-volume-percentage {
+    display: inline-block;
+  }
+}
+
 /* WebKit Slider Thumb (Chrome, Edge, Safari) */
 .celestial-volume-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -836,6 +846,16 @@ body,
 /* ========================================================
    TOP INSTRUCTION: PURE UNBOXED CELESTIAL TYPOGRAPHY
    ======================================================== */
+.top-instruction-wrapper {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .top-instruction-wrapper {
+    display: flex;
+  }
+}
+
 .top-instruction-text {
   display: inline-block;
   background: transparent;
@@ -1104,11 +1124,12 @@ body,
 @media (max-width: 767px) {
   #lyrics-container,
   .lyrics-floating-container {
-    top: 56px;
+    top: 58px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90vw;
+    width: min(90vw, 360px);
     text-align: center;
+    padding: 0 8px;
   }
 }
 
@@ -1126,8 +1147,8 @@ body,
 
 @media (max-width: 767px) {
   .lyrics-melody-title {
-    font-size: 16px;
-    margin-bottom: 4px;
+    font-size: 15px;
+    margin-bottom: 2px;
     justify-content: center;
   }
 }
@@ -1150,9 +1171,11 @@ body,
 
 @media (max-width: 767px) {
   .lyric-line-prev {
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 1.25;
     margin-bottom: 2px;
-    min-height: 16px;
+    min-height: 15px;
+    transform: translateY(-4px) scale(0.96);
   }
 }
 
@@ -1175,11 +1198,11 @@ body,
 
 @media (max-width: 767px) {
   .lyric-line-active {
-    font-size: 18px;
+    font-size: 15px;
     line-height: 1.3;
     border-left: none;
     padding-left: 0;
-    margin: 3px 0;
+    margin: 2px 0;
   }
 }
 
@@ -1213,9 +1236,11 @@ body,
 
 @media (max-width: 767px) {
   .lyric-line-next {
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 1.2;
     margin-top: 2px;
-    min-height: 14px;
+    min-height: 13px;
+    transform: translateY(4px) scale(0.96);
   }
 }
 

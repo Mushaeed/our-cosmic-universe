@@ -337,7 +337,7 @@ export const ParticleHeartCanvas: React.FC<ParticleHeartCanvasProps> = ({
       const reservedBottom = isMobile ? 220 : 250;
       const availableStageHeight = height - reservedBottom;
       const centerX = width * 0.5;
-      const centerY = Math.max(targetHeartWidth * 0.35 + 30, availableStageHeight * 0.48);
+      const centerY = Math.max(targetHeartWidth * 0.35 + 30, availableStageHeight * 0.48) + (isMobile ? 36 : 0);
 
       setCenterPos({ x: centerX, y: centerY });
 
@@ -464,7 +464,7 @@ export const ParticleHeartCanvas: React.FC<ParticleHeartCanvasProps> = ({
       const reservedBottom = isMobile ? 220 : 250;
       const availableStageHeight = height - reservedBottom;
       const centerX = width * 0.5;
-      const centerY = Math.max(targetHeartWidth * 0.35 + 30, availableStageHeight * 0.48);
+      const centerY = Math.max(targetHeartWidth * 0.35 + 30, availableStageHeight * 0.48) + (isMobile ? 36 : 0);
 
       const baseScale = targetHeartWidth / 32;
 

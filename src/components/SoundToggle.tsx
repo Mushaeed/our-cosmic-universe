@@ -102,7 +102,7 @@ export const SoundToggle: React.FC = () => {
           value={currentPercent}
           onChange={handleVolumeChange}
           onInput={handleVolumeChange}
-          className="celestial-volume-slider"
+          className="celestial-volume-slider w-14 sm:w-20"
           aria-label="Volume slider"
           aria-valuenow={currentPercent}
           aria-valuemin={0}
@@ -113,7 +113,7 @@ export const SoundToggle: React.FC = () => {
           }}
         />
         <span
-          className="text-[10px] font-mono text-slate-300/80 w-[26px] text-right select-none pointer-events-none tabular-nums"
+          className="celestial-volume-percentage text-[10px] font-mono text-slate-300/80 w-[26px] text-right select-none pointer-events-none tabular-nums"
           aria-hidden="true"
         >
           {currentPercent}%
